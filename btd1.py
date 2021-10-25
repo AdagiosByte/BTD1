@@ -6,19 +6,25 @@ gameOver = False
 
 while gameOver == False:
     pyautogui.click(780,250) # buy dart monkey
-    pyautogui.doubleClick(random.randint(0,720),random.randint(0,700)) #select random tower placement
-    #time.sleep(1)
+    
+    while True:
+        pyautogui.moveTo(random.randint(40,720),random.randint(40,700)) #select random tower placement
+        a = pyautogui.screenshot()
+        x,y = pyautogui.position()
+        i = a.getpixel((x-60,y))
+        
+        #check for game over (win or loose)
+        if pyautogui.pixelMatchesColor(440,300,(80,232,80)) == True or pyautogui.pixelMatchesColor(440,300,(255,153,85)) == True: 
+            gameOver = True
+            break
+            
+        #place tower
+        if i[0] > 100 and i[1] > 100 and i[2] > 100:
+            pyautogui.click()
+            break;
+        
+        
+        
     pyautogui.click(800,500) # buy left upgrade
     pyautogui.click(900,500) # buy right upgrade
     pyautogui.click(900,700) # press Start Round
-    
-    #check for game over
-    gameOver = pyautogui.pixelMatchesColor(440,300,(255,153,85))
-    
-#pyautogui.click(800,600) # sell tower
-#pyautogui.click(800,500) # buy left upgrade
-#pyautogui.click(900,500) # buy right upgrade
-#pyautogui.click(780,250) # buy dart monkey
-#pyautogui.click(820,250) # buy tack tower
-#pyautogui.click(random.randint(0,720),random.randint(0,700)) #select random tower placement
-#pyautogui.click(900,700) # press Start Round
